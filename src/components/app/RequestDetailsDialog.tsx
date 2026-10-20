@@ -19,7 +19,7 @@ function FieldRow({ field, request }: { field: SystemFieldDef; request: Activati
   const copyable = field.type === 'id' || field.type === 'phone'
 
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-border/70 py-3 last:border-0">
+    <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/70 py-3 last:border-0 ">
       <span className="text-sm text-muted-foreground">{field.label}</span>
       <div className="flex items-center gap-1.5">
         <span
