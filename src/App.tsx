@@ -25,10 +25,10 @@ function App() {
   }
 
   return (
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/system/:systemId" element={<SystemPage />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/system/:systemId" element={<SystemPage />} />
+    </Routes>
   )
 }
 

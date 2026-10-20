@@ -6,6 +6,9 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card } from '@/components/ui/card'
 import { useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase/config'
+import toast from 'react-hot-toast'
 
 function mapAuthError(code: string): string {
   switch (code) {
@@ -67,7 +70,9 @@ export function Login() {
     setSubmitting(true)
 
     try {
-      navigate('/')
+      await signInWithEmailAndPassword(auth, email.trim(), password);
+      toast.success('تم تسجيل الدخول بنجاح!')
+      navigate('/');
     } catch (err: unknown) {
       const code =
         typeof err === 'object' &&
