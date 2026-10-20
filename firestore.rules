@@ -1,0 +1,26 @@
+rules_version = '2';
+
+// ملف مرجعي بس - انسخ المحتوى ده والصقه في Firebase Console -> Firestore Database -> Rules
+// (أو استخدمه مع Firebase CLI لو بتنشر الـ rules من التيرمينال)
+//
+// الفكرة:
+// - أي حد (حتى بدون تسجيل دخول) يقدر "يضيف" طلب تفعيل جديد (create) - زي ما أنظمة
+//   RO'YA (PS Manager / PS Cafe Manager / Mobile Manager...) بتبعت البيانات دلوقتي.
+// - بس "القراءة" (read) للطلبات دي ممنوعة إلا لو المستخدم عامل تسجيل دخول
+//   (auth != null) - وده بالظبط اللي بيحصل لما تسجل دخول في RO'YA Clients Manager.
+// - مفيش تعديل أو حذف مسموح لحد خالص من الواجهة (update/delete = false) حفاظًا على البيانات.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /systems/{systemId}/activationRequests/{requestId} {
+      allow create: if true;
+      allow read: if request.auth != null;
+      allow update, delete: if false;
+    }
+
+    // أي مستندات تانية تحت نفس المشروع تفضل مقفولة افتراضيًا
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,167 @@
+@import './fonts.css';
+@import 'tailwindcss';
+@plugin 'tailwindcss-animate';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.75rem;
+
+  /* RO'YA brand palette */
+  --roya-primary: #0a20a7;
+  --roya-secondary: #1c80d5;
+  --roya-white: #e3ebf3;
+  --roya-text: #0d1440;
+
+  --background: #f4f7fb;
+  --foreground: var(--roya-text);
+
+  --card: #ffffff;
+  --card-foreground: var(--roya-text);
+
+  --popover: #ffffff;
+  --popover-foreground: var(--roya-text);
+
+  --primary: var(--roya-primary);
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--roya-secondary);
+  --secondary-foreground: #ffffff;
+
+  --muted: var(--roya-white);
+  --muted-foreground: #5b6584;
+
+  --accent: #eaf1fb;
+  --accent-foreground: var(--roya-primary);
+
+  --destructive: #e23f3f;
+  --destructive-foreground: #ffffff;
+
+  --border: #dde4ef;
+  --input: #dde4ef;
+  --ring: var(--roya-secondary);
+
+  --sidebar: #0a1a6e;
+  --sidebar-foreground: #e9eefc;
+  --sidebar-primary: var(--roya-secondary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #13238f;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #16247f;
+}
+
+.dark {
+  --background: #0a1030;
+  --foreground: #e9eefc;
+
+  --card: #10163f;
+  --card-foreground: #e9eefc;
+
+  --popover: #10163f;
+  --popover-foreground: #e9eefc;
+
+  --primary: #3d63e0;
+  --primary-foreground: #ffffff;
+
+  --secondary: var(--roya-secondary);
+  --secondary-foreground: #ffffff;
+
+  --muted: #141b47;
+  --muted-foreground: #96a0c9;
+
+  --accent: #182056;
+  --accent-foreground: #cfdcfb;
+
+  --destructive: #ff5c5c;
+  --destructive-foreground: #ffffff;
+
+  --border: #1d2557;
+  --input: #1d2557;
+  --ring: var(--roya-secondary);
+
+  --sidebar: #070b24;
+  --sidebar-foreground: #e9eefc;
+  --sidebar-primary: var(--roya-secondary);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #121a4a;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #121a4a;
+}
+
+@theme inline {
+  --font-sans: 'IBM Plex Sans Arabic', 'Cairo', ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+
+  --color-roya-primary: var(--roya-primary);
+  --color-roya-secondary: var(--roya-secondary);
+  --color-roya-white: var(--roya-white);
+  --color-roya-text: var(--roya-text);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'ss01' on, 'cv01' on;
+  }
+
+  ::selection {
+    background: var(--roya-secondary);
+    color: #fff;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--roya-secondary) 40%, transparent);
+    border-radius: 999px;
+  }
+}
