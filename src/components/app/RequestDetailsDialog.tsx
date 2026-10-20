@@ -44,7 +44,7 @@ export function RequestDetailsDialog({ systemId, request, open, onOpenChange }: 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-xl">
+      <DialogContent className="sm:max-w-md lg:max-w-xl">
         {request && (
           <>
             <DialogHeader>
