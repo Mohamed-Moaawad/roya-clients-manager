@@ -71,12 +71,6 @@ export function Login() {
     setSubmitting(true)
 
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email.trim(),
-        password
-      )
-
       navigate('/')
     } catch (err: unknown) {
       const code =
