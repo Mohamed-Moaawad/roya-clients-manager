@@ -5,6 +5,8 @@ import { auth } from '@/firebase/config'
 import { Login } from '@/pages/Login'
 import { Home } from '@/pages/Home'
 import { SystemPage } from '@/pages/SystemPage'
+import Activation from './pages/Activation'
+import ActivationDetails from './pages/ActivationDetails'
 
 function App() {
   const [user, loading] = useAuthState(auth)
@@ -28,6 +30,10 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/system/:systemId" element={<SystemPage />} />
+
+      {/* صفحات أكواد التفعيل */}
+      <Route path="/activation" element={<Activation />} />
+      <Route path="/activation/:systemId" element={<ActivationDetails />} />
     </Routes>
   )
 }

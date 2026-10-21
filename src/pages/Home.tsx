@@ -1,10 +1,11 @@
-import { LogOut } from 'lucide-react'
+import { KeyRound, LogOut } from 'lucide-react'
 import { signOut } from 'firebase/auth'
 
 import { auth } from '@/firebase/config'
 import { systems } from '@/config/systems'
 import { SystemCard } from '@/components/app/SystemCard'
 import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
 
 export function Home() {
   return (
@@ -18,6 +19,12 @@ export function Home() {
             <h1 className="text-lg font-bold text-foreground">RO'YA Clients Manager</h1>
             <p className="text-sm text-muted-foreground">اختار نظام عشان تشوف العملاء المسجلين فيه</p>
           </div>
+          <Button variant="ghost" size="sm" className="gap-2" asChild>
+            <Link to="/activation">
+              <KeyRound className="size-4" />
+              أكواد التفعيل
+            </Link>
+          </Button>
           <Button variant="destructive" size="sm" className="gap-2" onClick={() => signOut(auth)}>
             <LogOut className="size-4" />
             خروج

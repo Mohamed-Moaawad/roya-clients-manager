@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
+import { ArrowLeft, Users } from 'lucide-react'
 import { collection, orderBy, query } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
@@ -34,17 +34,20 @@ export function SystemPage() {
     <div dir="rtl" className="min-h-dvh bg-background">
       <header className="border-b border-border bg-card">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-5 sm:px-6">
-          <Button variant="ghost" size="icon" asChild>
-            <Link to="/">
-              <ArrowRight className="size-5" />
-            </Link>
-          </Button>
-          <div>
+          <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <Users className="size-5" />
+          </div>
+          <div className="flex-1">
             <h1 className="text-lg font-bold text-foreground sm:text-xl">
               {system?.name ?? 'نظام غير معروف'}
             </h1>
             <p className="text-sm text-muted-foreground">{system?.description}</p>
           </div>
+          <Button variant="ghost" size="icon" asChild>
+            <Link to="/">
+              <ArrowLeft className="size-5" />
+            </Link>
+          </Button>
         </div>
       </header>
 
