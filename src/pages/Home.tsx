@@ -11,24 +11,28 @@ export function Home() {
   return (
     <div dir="rtl" className="min-h-dvh bg-background">
       <header className="border-b border-border bg-card">
-        <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-5 sm:px-6">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-lg font-extrabold text-primary-foreground">
-            R
+        <div className="mx-auto grid grid-cols-3 max-w-5xl items-center gap-3 px-4 py-5 sm:px-6">
+          <div className="col-span-full md:col-span-2 flex items-center gap-3">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-lg font-extrabold text-primary-foreground">
+              R
+            </div>
+            <div className="flex-1">
+              <h1 className="text-lg font-bold text-foreground">RO'YA Clients Manager</h1>
+              <p className="text-sm text-muted-foreground">اختار نظام عشان تشوف العملاء المسجلين فيه</p>
+            </div>
           </div>
-          <div className="flex-1">
-            <h1 className="text-lg font-bold text-foreground">RO'YA Clients Manager</h1>
-            <p className="text-sm text-muted-foreground">اختار نظام عشان تشوف العملاء المسجلين فيه</p>
+          <div className="col-span-full md:col-span-1 flex items-center justify-end gap-2">
+            <Button variant="ghost" size="sm" className="gap-2 w-8/12 md:w-auto" asChild>
+              <Link to="/activation">
+                <KeyRound className="size-4" />
+                أكواد التفعيل
+              </Link>
+            </Button>
+            <Button variant="destructive" size="sm" className="gap-2 w-4/12 md:w-auto" onClick={() => signOut(auth)}>
+              <LogOut className="size-4" />
+              خروج
+            </Button>
           </div>
-          <Button variant="ghost" size="sm" className="gap-2" asChild>
-            <Link to="/activation">
-              <KeyRound className="size-4" />
-              أكواد التفعيل
-            </Link>
-          </Button>
-          <Button variant="destructive" size="sm" className="gap-2" onClick={() => signOut(auth)}>
-            <LogOut className="size-4" />
-            خروج
-          </Button>
         </div>
       </header>
 
