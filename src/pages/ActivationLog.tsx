@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowRight, History, Inbox, Search } from 'lucide-react'
+import { ArrowLeft, History, Inbox, Search } from 'lucide-react'
 import { collection, orderBy, query } from 'firebase/firestore'
 import { useCollection } from 'react-firebase-hooks/firestore'
 
