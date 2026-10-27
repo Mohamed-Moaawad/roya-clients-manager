@@ -17,7 +17,7 @@ interface ActivationCodeDialogProps {
 
 function Row({ label, value, mono, copyable }: { label: string; value: string; mono?: boolean; copyable?: boolean }) {
     return (
-        <div className="flex items-center justify-between gap-4 border-b border-border/70 py-3 last:border-0">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/70 py-3 last:border-0">
             <span className="text-sm text-muted-foreground">{label}</span>
             <div className="flex items-center gap-1.5">
                 <span
