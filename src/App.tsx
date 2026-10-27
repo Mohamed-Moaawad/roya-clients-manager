@@ -7,6 +7,7 @@ import { Home } from '@/pages/Home'
 import { SystemPage } from '@/pages/SystemPage'
 import Activation from './pages/Activation'
 import ActivationDetails from './pages/ActivationDetails'
+import { ActivationLog } from './pages/ActivationLog'
 
 function App() {
   const [user, loading] = useAuthState(auth)
@@ -34,6 +35,7 @@ function App() {
       {/* صفحات أكواد التفعيل */}
       <Route path="/activation" element={<Activation />} />
       <Route path="/activation/:systemId" element={<ActivationDetails />} />
+      <Route path="/activation/log" element={<ActivationLog />} />
     </Routes>
   )
 }

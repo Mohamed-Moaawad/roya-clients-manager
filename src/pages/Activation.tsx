@@ -1,4 +1,4 @@
-import { ArrowLeft, KeyRound } from 'lucide-react';
+import { ArrowLeft, History, KeyRound } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { activationSystems } from '@/config/activationSystems';
 import { Button } from '@/components/ui/button';
@@ -17,6 +17,13 @@ const Activation = () => {
                         <h1 className="text-lg font-bold text-foreground">أكواد التفعيل</h1>
                         <p className="text-sm text-muted-foreground">اختار النظام المطلوب لتوليد كود التفعيل</p>
                     </div>
+
+                    <Button variant="outline" size="sm" className="gap-2" asChild>
+                        <Link to="/activation/log">
+                            <History className="size-4" />
+                            سجل الأكواد
+                        </Link>
+                    </Button>
 
                     <Button variant="ghost" size="sm" className="gap-2" asChild>
                         <Link to="/">

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft, Check, Copy, KeyRound, LoaderCircle } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Copy, History, KeyRound, LoaderCircle } from 'lucide-react'
 
 import { getActivationSystemById } from '@/config/activationSystems'
 import { generateActivationCode, type ActivationResult } from '@/lib/activation/generateActivationCode'
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card } from '@/components/ui/card'
+import { saveActivationCode } from '@/lib/activation/saveActivationCode'
 
 const selectClassName =
     'flex h-10 w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm outline-none transition-colors focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-50'
@@ -27,6 +28,7 @@ const ActivationDetails = () => {
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const [copied, setCopied] = useState(false)
+    const [logSaveError, setLogSaveError] = useState(false)
 
     if (!system) {
         return (
@@ -46,6 +48,7 @@ const ActivationDetails = () => {
         setError('')
         setResult(null)
         setCopied(false)
+        setLogSaveError(false)
 
         if (!machineId.trim()) {
             setError('من فضلك أدخل رقم الجهاز')
@@ -74,10 +77,21 @@ const ActivationDetails = () => {
                 ...(system!.hasTableLimit ? { tableLimit: Number(tableLimit) } : {}),
             })
 
-            setResult({
+            const finalResult: ActivationResult = {
                 ...generated,
                 durationLabel: isCustom ? `${customDays} يوم` : generated.durationLabel,
-            })
+            }
+
+            setResult(finalResult)
+
+            // حفظ الكود في سجل الأكواد (Firestore) - عملية منفصلة عن توليد الكود نفسه:
+            // لو فشلت (مشكلة شبكة/صلاحيات) الكود اتولد وظاهر للمستخدم عادي، بس بنوريه تنبيه بسيط.
+            try {
+                await saveActivationCode(system!, machineId, finalResult)
+            } catch (logErr) {
+                console.error('تعذر حفظ الكود في السجل:', logErr)
+                setLogSaveError(true)
+            }
         } catch (err) {
             setError(err instanceof Error ? err.message : 'حصل خطأ أثناء توليد الكود')
         } finally {
@@ -102,6 +116,12 @@ const ActivationDetails = () => {
         <div dir="rtl" className="min-h-dvh bg-background">
             <header className="border-b border-border bg-card">
                 <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-5 sm:px-6">
+                    <Button variant="ghost" size="icon" asChild>
+                        <Link to="/activation">
+                            <ArrowRight className="size-5" />
+                        </Link>
+                    </Button>
+
                     <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
                         <KeyRound className="size-5" />
                     </div>
@@ -110,6 +130,13 @@ const ActivationDetails = () => {
                         <h1 className="font-bold text-foreground">{system.name}</h1>
                         <p className="text-sm text-muted-foreground">توليد كود تفعيل جديد</p>
                     </div>
+
+                    <Button variant="outline" size="sm" className="gap-2" asChild>
+                        <Link to="/activation/log">
+                            <History className="size-4" />
+                            سجل الأكواد
+                        </Link>
+                    </Button>
 
                     <Button variant="ghost" size="icon" asChild>
                         <Link to="/activation">
@@ -225,6 +252,12 @@ const ActivationDetails = () => {
                             </div>
                         </div>
 
+                        {logSaveError && (
+                            <p className="rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
+                                الكود اتولد صح، بس حصلت مشكلة في حفظه بسجل الأكواد - انسخه دلوقتي عشان متضيعوش.
+                            </p>
+                        )}
+
                         <div className="space-y-1.5">
                             <Label htmlFor="generatedCode">Activation Code</Label>
                             <textarea
@@ -268,7 +301,14 @@ const ActivationDetails = () => {
                             <div className="rounded-xl bg-muted/60 p-3 sm:col-span-2">
                                 <p className="text-sm text-muted-foreground">تاريخ الانتهاء</p>
                                 <p className="mt-1 font-medium text-foreground">
-                                    {result.expiresAt ? result.expiresAt.toLocaleString('ar-EG') : 'مدى الحياة'}
+                                    {result.expiresAt
+                                        ? `${result.expiresAt.toLocaleDateString('en-US')} _ ${result.expiresAt.toLocaleTimeString('en-US', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            hour12: true,
+                                        })}`
+                                        : 'مدى الحياة'
+                                    }
                                 </p>
                             </div>
 

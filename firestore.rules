@@ -9,6 +9,11 @@ rules_version = '2';
 // - بس "القراءة" (read) للطلبات دي ممنوعة إلا لو المستخدم عامل تسجيل دخول
 //   (auth != null) - وده بالظبط اللي بيحصل لما تسجل دخول في RO'YA Clients Manager.
 // - مفيش تعديل أو حذف مسموح لحد خالص من الواجهة (update/delete = false) حفاظًا على البيانات.
+//
+// - سجل أكواد التفعيل (activationCodes) مختلف: هنا الكتابة والقراءة والحذف كلهم
+//   للمستخدم المسجل دخول بس (مفيش حد تاني بيكتب فيها زي الأنظمة - هي بتتكتب من
+//   صفحة "أكواد التفعيل" نفسها بعد تسجيل الدخول)، والحذف مسموح عشان زرار الحذف
+//   في الـ popup يشتغل.
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -16,6 +21,11 @@ service cloud.firestore {
       allow create: if true;
       allow read: if request.auth != null;
       allow update, delete: if false;
+    }
+
+    match /activationCodes/{codeId} {
+      allow create, read, delete: if request.auth != null;
+      allow update: if false;
     }
 
     // أي مستندات تانية تحت نفس المشروع تفضل مقفولة افتراضيًا
