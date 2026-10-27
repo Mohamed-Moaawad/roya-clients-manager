@@ -3,7 +3,7 @@ import { KeyRound, Trash2 } from 'lucide-react'
 import { deleteDoc, doc } from 'firebase/firestore'
 
 import { db } from '@/firebase/config'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { CopyButton } from '@/components/app/CopyButton'
 import { formatTimestamp } from '@/lib/format'
