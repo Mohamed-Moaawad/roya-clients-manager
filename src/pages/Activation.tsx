@@ -8,29 +8,33 @@ const Activation = () => {
     return (
         <div dir="rtl" className="min-h-dvh bg-background">
             <header className="border-b border-border bg-card">
-                <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-5 sm:px-6">
-                    <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                        <KeyRound className="size-5" />
+                <div className="mx-auto grid grid-cols-3 max-w-5xl items-center gap-3 px-4 py-5 sm:px-6">
+                    <div className="col-span-full md:col-span-2 flex items-center gap-3">
+                        <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+                            <KeyRound className="size-5" />
+                        </div>
+
+                        <div className="flex-1">
+                            <h1 className="text-lg font-bold text-foreground">أكواد التفعيل</h1>
+                            <p className="text-sm text-muted-foreground">اختار النظام المطلوب لتوليد كود التفعيل</p>
+                        </div>
                     </div>
 
-                    <div className="flex-1">
-                        <h1 className="text-lg font-bold text-foreground">أكواد التفعيل</h1>
-                        <p className="text-sm text-muted-foreground">اختار النظام المطلوب لتوليد كود التفعيل</p>
+                    <div className="col-span-full md:col-span-1 flex items-center justify-end gap-2">
+                        <Button variant="outline" size="sm" className="gap-2 w-8/12 md:w-auto" asChild>
+                            <Link to="/activation/log">
+                                <History className="size-4" />
+                                سجل الأكواد
+                            </Link>
+                        </Button>
+
+                        <Button variant="ghost" size="sm" className="gap-2 w-4/12 md:w-auto" asChild>
+                            <Link to="/">
+                                الرئيسية
+                                <ArrowLeft className="size-4" />
+                            </Link>
+                        </Button>
                     </div>
-
-                    <Button variant="outline" size="sm" className="gap-2" asChild>
-                        <Link to="/activation/log">
-                            <History className="size-4" />
-                            سجل الأكواد
-                        </Link>
-                    </Button>
-
-                    <Button variant="ghost" size="sm" className="gap-2" asChild>
-                        <Link to="/">
-                            الرئيسية
-                            <ArrowLeft className="size-4" />
-                        </Link>
-                    </Button>
                 </div>
             </header>
 

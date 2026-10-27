@@ -62,7 +62,7 @@ export function ActivationCodeDialog({ record, open, onOpenChange }: ActivationC
 
     return (
         <Dialog open={open} onOpenChange={handleOpenChange}>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md lg:max-w-xl">
                 <DialogHeader>
                     <div className="flex items-center gap-3">
                         <div className="flex size-11 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -70,9 +70,8 @@ export function ActivationCodeDialog({ record, open, onOpenChange }: ActivationC
                         </div>
                         <div>
                             <DialogTitle className="font-mono text-base" dir="ltr">
-                                {record.code}
+                                {record.systemName}
                             </DialogTitle>
-                            <DialogDescription>{record.systemName}</DialogDescription>
                         </div>
                     </div>
                 </DialogHeader>
